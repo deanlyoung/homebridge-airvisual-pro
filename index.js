@@ -1,11 +1,10 @@
-
-var Service;
-var Characteristic;
+var Service, Characteristic;
 var exec = require("child_process").exec;
 
 module.exports = function(homebridge){
 	Service = homebridge.hap.Service;
 	Characteristic = homebridge.hap.Characteristic;
+	
 	homebridge.registerAccessory("homebridge-airvisual-pro", "AirVisualPro", AirVisualProAccessory);
 }
 
