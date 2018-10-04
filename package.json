@@ -11,6 +11,7 @@
     "url": "git+https://github.com/deanlyoung/homebridge-airvisual-pro.git"
   },
   "keywords": [
+    "homebridge-plugin",
     "air",
     "airvisual",
     "pro",
