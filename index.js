@@ -67,7 +67,7 @@ AirVisualProAccessory.prototype = {
 	  if(that.aq_status != that.airdata.measurements.pm25_AQIUS) {
         that.log ("AQI - " + that.aq_status + " -> " + that.airdata.measurements.pm25_AQIUS);
         that.aq_status = Number(that.airdata.measurements.pm25_AQIUS);
-        that.setAirQuality();
+        that.setAirQuality(that.aq_status);
 	  }
       if(that.pm25 != that.airdata.measurements.pm25_ugm3) {
         that.log ("PM2.5 (ug/m3) - " + that.pm25 + " -> " + that.airdata.measurements.pm25_ugm3);
