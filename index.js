@@ -234,7 +234,7 @@ AirVisualProAccessory.prototype = {
 	
 	this.humidityService
 		.getCharacteristic(Characteristic.CurrentRelativeHumidity)
-		.on('get', this.getCurrentRelativeHumidity.bind(this));
+		.on('get', this.getHumidity.bind(this));
 
     return [this.informationService, this.airqualityService, this.temperatureService, this.carbondioxideService, this.humidityService];
   }
