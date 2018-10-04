@@ -1,6 +1,6 @@
 {
   "name": "homebridge-airvisual-pro",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Homebridge plugin for IQAir AirVisual Pro",
   "main": "index.js",
   "scripts": {
@@ -19,8 +19,8 @@
     "iqair"
   ],
   "engines": {
-		"node": ">=6.0.0",
-		"homebridge": ">=0.2.0"
+    "node": ">=6.0.0",
+    "homebridge": ">=0.2.0"
   },
   "author": "deanlyoung",
   "license": "MIT",
