@@ -65,19 +65,25 @@ AirVisualProAccessory.prototype = {
     });
 
     if(that.airdata.measurements) {
+	  if(that.aq_status != that.airdata.measurements.pm25_AQIUS) {
+        that.log ("AQI - " + that.aq_status + " -> " + that.airdata.measurements.pm25_AQIUS);
+        that.aq_status = Number(that.airdata.measurements.pm25_AQIUS);
+        that.setAirQuality();
+	  }
       if(that.pm25 != that.airdata.measurements.pm25_ugm3) {
         that.log ("PM2.5 (ug/m3) - " + that.pm25 + " -> " + that.airdata.measurements.pm25_ugm3);
         that.pm25 = Number(that.airdata.measurements.pm25_ugm3);
         that.setPM25Density();
       }
-      if(that.aqi != that.airdata.measurements.pm25_AQIUS) {
-        that.log ("AQI - " + that.aqi + " -> " + that.airdata.measurements.pm25_AQIUS);
-        that.aqi = Number(that.airdata.measurements.pm25_AQIUS); 
-        that.setAirQuality(that.aqi);
+      if(that.pm10 != that.airdata.measurements.pm10_ugm3) {
+        that.log ("PM10 (ug/m3) - " + that.pm10 + " -> " + that.airdata.measurements.pm10_ugm3);
+        that.pm10 = Number(that.airdata.measurements.pm10_ugm3); 
+        that.setPM10Density();
       }
       if(that.temp_c != that.airdata.measurements.temperature_C) {
         that.log ("Temperature (C) - " + that.temp_c + " -> " + that.airdata.measurements.temperature_C);
         that.temp_c = Number(that.airdata.measurements.temperature_C); 
+		that.setCurrentTemperature();
       }
       if(that.hm != that.airdata.measurements.humidity_RH) {
         that.log ("Humidity (%) - " + that.hm + " -> " + that.airdata.measurements.humidity_RH);
@@ -122,13 +128,7 @@ AirVisualProAccessory.prototype = {
     var that = this;
     // 1 = F and 0 = C
     callback (null, 0);
-  },  
-
-  getAirParticulateSize: function (callback) {
-    var that = this;
-    that.log ("getting AirParticulateSize");
-    callback(null, 0);
-  },  
+  },
 
   getPM25Density: function (callback) {
     var that = this;
@@ -139,6 +139,17 @@ AirVisualProAccessory.prototype = {
   setPM25Density: function() {
     var that = this;
     that.airqualityService.setCharacteristic(Characteristic.PM2_5Density, that.pm25);
+  },
+  
+  getPM10Density: function (callback) {
+    var that = this;
+    that.log ("getting PM10 Density");
+    callback(null, that.pm10);
+  },  
+
+  setPM10Density: function() {
+    var that = this;
+    that.airqualityService.setCharacteristic(Characteristic.PM10Density, that.pm10);
   },
 
   getHumidity: function (callback) {
@@ -160,7 +171,6 @@ AirVisualProAccessory.prototype = {
   setCarbonDioxide: function() {
     var that = this;
     this.carbondioxideService.setCharacteristic(Characteristic.CarbonDioxideLevel, that.co2);
-    that.airqualityService.setCharacteristic(Characteristic.CarbonDioxideLevel, that.co2);
   },
 
   getCarbonDioxideDetected: function (callback) {
@@ -208,17 +218,8 @@ AirVisualProAccessory.prototype = {
          .on('get', this.getPM25Density.bind(this));
 
     this.airqualityService
-         .getCharacteristic(Characteristic.CarbonDioxideLevel)
-         .on('get', this.getCarbonDioxide.bind(this));
-
-console.log(this.airqualityService);
-    this.airqualityService
-         .getCharacteristic(Characteristic.AirParticulateDensity)
-         .on('get', this.getPM25Density.bind(this));
-
-    this.airqualityService
-         .getCharacteristic(Characteristic.AirParticulateSize)
-         .on('get', this.getAirParticulateSize.bind(this));
+         .getCharacteristic(Characteristic.PM10Density)
+         .on('get', this.getPM10Density.bind(this));
 
     this.carbondioxideService
          .getCharacteristic(Characteristic.CarbonDioxideDetected)
@@ -229,8 +230,12 @@ console.log(this.airqualityService);
          .on('get', this.getCarbonDioxide.bind(this));
 
     this.temperatureService
-	.getCharacteristic(Characteristic.CurrentTemperature)
-	.on('get', this.getCurrentTemperature.bind(this));
+		.getCharacteristic(Characteristic.CurrentTemperature)
+		.on('get', this.getCurrentTemperature.bind(this));
+	
+	this.humidityService
+		.getCharacteristic(Characteristic.CurrentRelativeHumidity)
+		.on('get', this.getCurrentRelativeHumidity.bind(this));
 
     return [this.informationService, this.airqualityService, this.temperatureService, this.carbondioxideService, this.humidityService];
   }

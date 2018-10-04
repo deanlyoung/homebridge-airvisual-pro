@@ -1,0 +1,26 @@
+{
+  "name": "homebridge-airvisual-pro",
+  "version": "1.0.0",
+  "description": "Homebridge plugin for IQAir AirVisual Pro",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deanlyoung/homebridge-airvisual-pro.git"
+  },
+  "keywords": [
+    "air",
+    "airvisual",
+    "pro",
+    "node",
+    "iqair"
+  ],
+  "author": "deanlyoung",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/deanlyoung/homebridge-airvisual-pro/issues"
+  },
+  "homepage": "https://github.com/deanlyoung/homebridge-airvisual-pro#readme"
+}
