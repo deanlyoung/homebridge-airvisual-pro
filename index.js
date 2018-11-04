@@ -23,9 +23,10 @@ function AirVisualProAccessory(log, config) {
 
   this.airdata = '';
   this.aq_status = 0;
-
-  this.pm25 = 0;
+  
   this.aqi = 0;
+  this.pm25 = 0;
+  this.pm10 = 0;
   this.temp_c = 0;
   this.hm = 0;
   this.co2 = 0;
@@ -64,10 +65,10 @@ AirVisualProAccessory.prototype = {
     });
 
     if(that.airdata.measurements) {
-	  if(that.aq_status != that.airdata.measurements.pm25_AQIUS) {
-        that.log ("AQI - " + that.aq_status + " -> " + that.airdata.measurements.pm25_AQIUS);
-        that.aq_status = Number(that.airdata.measurements.pm25_AQIUS);
-        that.setAirQuality(that.aq_status);
+	  if(that.aqi != that.airdata.measurements.pm25_AQIUS) {
+        that.log ("AQI - " + that.aqi + " -> " + that.airdata.measurements.pm25_AQIUS);
+        that.aqi = Number(that.airdata.measurements.pm25_AQIUS);
+        that.setAirQuality(that.aqi);
 	  }
       if(that.pm25 != that.airdata.measurements.pm25_ugm3) {
         that.log ("PM2.5 (ug/m3) - " + that.pm25 + " -> " + that.airdata.measurements.pm25_ugm3);
