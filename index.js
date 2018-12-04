@@ -61,12 +61,9 @@ AirVisualProAccessory.prototype = {
     this.log ("Refreshing values...");
 
     exec('smbget -q -O -U ' + that.user + '%' + that.pass + ' smb://' + that.ip + '/airvisual/latest_config_measurements.json', (error, stdout, stderr) => {
-      stdout = JSON.stringify(stdout);
-      error = JSON.stringify(error);
-      stderr = JSON.stringify(stderr);
-      that.log("[stdout]: " + stdout);
-      that.log("[error]: " + error);
-      that.log("[stderr]: " + stderr);
+      that.log("[stdout]: " + JSON.stringify(stdout));
+      that.log("[error]: " + JSON.stringify(error));
+      that.log("[stderr]: " + JSON.stringify(stderr));
       if(stdout != '') {
           that.airdata = JSON.parse(stdout);
       }
