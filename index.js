@@ -44,11 +44,7 @@ AirVisualProAccessory.prototype = {
 		method: method
 	},
 	function (error, response, body) {
-		if (that.logging) {
-			callback(error, response, body);
-		} else {
-			callback();
-		}
+		//callback(error, response, body);
 	})
 },
 
