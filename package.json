@@ -1,6 +1,6 @@
 {
   "name": "homebridge-airvisual-pro",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Homebridge plugin for IQAir AirVisual Pro",
   "main": "index.js",
   "scripts": {
