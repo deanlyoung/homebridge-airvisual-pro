@@ -44,7 +44,11 @@ AirVisualProAccessory.prototype = {
 		method: method
 	},
 	function (error, response, body) {
-		callback(error, response, body)
+		if (that.logging) {
+			callback(error, response, body);
+		} else {
+			callback();
+		}
 	})
 },
 
@@ -55,7 +59,7 @@ identify: function(callback) {
 },
 
 refresh: function() {
-var that = this;
+	var that = this;
 	if (that.logging) {
 		this.log ("Refreshing values...");
 	}
