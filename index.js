@@ -72,46 +72,67 @@ refresh: function() {
 	});
 	
 	if(that.airdata.measurements) {
-		if(that.aqi != that.airdata.measurements.pm25_AQIUS) {
+		var l_pm25_aqius;
+		var l_pm25_ugm3;
+		var l_pm10_ugm3;
+		var l_temperature_C;
+		var l_humidity_RH;
+		var l_co2_ppm;
+		if(Array.isArray(that.airdata.measurements)) {
+			l_pm25_aqius = that.airdata.measurements[0].pm25_AQIUS;
+			l_pm25_ugm3 = that.airdata.measurements[0].pm25_ugm3;
+			l_pm10_ugm3 = that.airdata.measurements[0].pm10_ugm3;
+			l_temperature_C = that.airdata.measurements[0].temperature_C;
+			l_humidity_RH = that.airdata.measurements[0].humidity_RH;
+			l_co2_ppm = that.airdata.measurements[0].co2_ppm;
+		} else {
+			l_pm25_aqius = that.airdata.measurements.pm25_AQIUS;
+			l_pm25_ugm3 = that.airdata.measurements.pm25_ugm3;
+			l_pm10_ugm3 = that.airdata.measurements.pm10_ugm3;
+			l_temperature_C = that.airdata.measurements.temperature_C;
+			l_humidity_RH = that.airdata.measurements.humidity_RH;
+			l_co2_ppm = that.airdata.measurements.co2_ppm;
+		}
+		if(that.aqi != l_pm25_aqius) {
 			if (that.logging) {
-				that.log ("AQI - " + that.aqi + " -> " + that.airdata.measurements.pm25_AQIUS);
+				that.log ("AQI - " + that.aqi + " -> " + l_pm25_aqius);
 			}
-			that.aqi = Number(that.airdata.measurements.pm25_AQIUS);
+			that.aqi = Number(l_pm25_aqius);
 			that.setAirQuality(that.aqi);
 		}
-		if(that.pm25 != that.airdata.measurements.pm25_ugm3) {
+		if(that.pm25 != l_pm25_ugm3) {
 			if (that.logging) {
-				that.log ("PM2.5 (ug/m3) - " + that.pm25 + " -> " + that.airdata.measurements.pm25_ugm3);
+				that.log ("PM2.5 (ug/m3) - " + that.pm25 + " -> " + l_pm25_ugm3);
 			}
-			that.pm25 = Number(that.airdata.measurements.pm25_ugm3);
+			that.pm25 = Number(l_pm25_ugm3);
 			that.setPM25Density();
 		}
-		if(that.pm10 != that.airdata.measurements.pm10_ugm3) {
+		if(that.pm10 != l_pm10_ugm3) {
 			if (that.logging) {
-				that.log ("PM10 (ug/m3) - " + that.pm10 + " -> " + that.airdata.measurements.pm10_ugm3);
+				that.log ("PM10 (ug/m3) - " + that.pm10 + " -> " + l_pm10_ugm3);
 			}
-			that.pm10 = Number(that.airdata.measurements.pm10_ugm3); 
+			that.pm10 = Number(l_pm10_ugm3); 
 			that.setPM10Density();
 		}
-		if(that.temp_c != that.airdata.measurements.temperature_C) {
+		if(that.temp_c != l_temperature_C) {
 			if (that.logging) {
-				that.log ("Temperature (C) - " + that.temp_c + " -> " + that.airdata.measurements.temperature_C);
+				that.log ("Temperature (C) - " + that.temp_c + " -> " + l_temperature_C);
 			}
-			that.temp_c = Number(that.airdata.measurements.temperature_C); 
+			that.temp_c = Number(l_temperature_C); 
 			that.setCurrentTemperature();
 		}
-		if(that.hm != that.airdata.measurements.humidity_RH) {
+		if(that.hm != l_humidity_RH) {
 			if (that.logging) {
-				that.log ("Humidity (%) - " + that.hm + " -> " + that.airdata.measurements.humidity_RH);
+				that.log ("Humidity (%) - " + that.hm + " -> " + l_humidity_RH);
 			}
-			that.hm = Number(that.airdata.measurements.humidity_RH); 
+			that.hm = Number(l_humidity_RH); 
 			that.setHumidity();
 		}
-		if(that.co2 != that.airdata.measurements.co2_ppm) {
+		if(that.co2 != l_co2_ppm) {
 			if (that.logging) {
-				that.log ("CO2 (ppm) - " + that.co2 + " -> " + that.airdata.measurements.co2_ppm);
+				that.log ("CO2 (ppm) - " + that.co2 + " -> " + l_co2_ppm);
 			}
-			that.co2 = Number(that.airdata.measurements.co2_ppm); 
+			that.co2 = Number(l_co2_ppm); 
 			that.setCarbonDioxide();
 			that.setCarbonDioxideDetected();
 		}
