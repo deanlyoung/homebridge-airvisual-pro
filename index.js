@@ -60,7 +60,7 @@ refresh: function() {
 		this.log ("Refreshing values...");
 	}
 	
-	exec('smbget -q -O -U ' + that.user + '%' + that.pass + ' smb://' + that.ip + '/airvisual/latest_config_measurements.json', (error, stdout, stderr) => {
+	exec('smbget -q -U ' + that.user + '%' + that.pass + ' smb://' + that.ip + '/airvisual/latest_config_measurements.json', (error, stdout, stderr) => {
 		if (that.logging) {
 			that.log("[stdout]: " + JSON.stringify(stdout));
 			that.log("[error]: " + JSON.stringify(error));
